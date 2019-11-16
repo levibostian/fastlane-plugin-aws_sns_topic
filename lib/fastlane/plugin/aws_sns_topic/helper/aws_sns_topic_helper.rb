@@ -10,9 +10,7 @@ module Fastlane
       # as `Helper::AwsSnsTopicHelper.your_method`
       #
       def self.verify_params(params, required_params)
-        UI.message("Hello from the aws_sns_topic plugin helper!")
-
-        required_params.forEach do |required_param|
+        required_params.each do |required_param|
           UI.user_error!("You forgot to pass in the parameter: #{required_param}, pass using `#{required_param}: 'value-here'`") unless params[required_param].to_s.length > 0
         end
       end
@@ -27,7 +25,7 @@ module Fastlane
         )
         @topic = Aws::SNS::Topic.new(
           arn: topic_arn,
-          client: client
+          client: @client
         )
       end
 

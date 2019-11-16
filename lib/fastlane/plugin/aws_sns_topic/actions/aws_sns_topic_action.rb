@@ -64,12 +64,12 @@ module Fastlane
                                        default_value: ENV['AWS_SNS_TOPIC_ARN']),
           FastlaneCore::ConfigItem.new(key: :message,
                                        env_name: "AWS_SNS_TOPIC_MESSAGE",
-                                       description: "The message you want to send to the AWS SNS topic. Think of it like the body of an email.",
+                                       description: "The message you want to send to the AWS SNS topic",
                                        optional: false,
                                        default_value: ENV['AWS_SNS_TOPIC_MESSAGE']),
           FastlaneCore::ConfigItem.new(key: :subject,
                                        env_name: "AWS_SNS_TOPIC_SUBJECT",
-                                       description: "The subject you want to send to the AWS SNS topic. Think of it like the subject of an email.",
+                                       description: "The subject you want to send to the AWS SNS topic",
                                        optional: false,
                                        default_value: ENV['AWS_SNS_TOPIC_SUBJECT'])
         ]

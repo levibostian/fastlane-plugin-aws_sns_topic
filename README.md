@@ -14,25 +14,47 @@ fastlane add_plugin aws_sns_topic
 
 Fastlane plugin to public message to SNS topic.
 
-**Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
+This plugin can be very handy to notify a group of people about a new app release. Create a AWS SNS topic, add recipient email addresses to the topic, then send a message to that topic with this plugin. Done! 
 
 ## Example
 
-Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
+```ruby
+notification_message_body = [
+    "App v#{versionOfApp}, build: #{buildVersion} ready for download.",
+    "\n",
+    "What has changed in this latest release?",
+    changelog
+].join("\n") + "\n"
 
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
+aws_sns_topic(
+    access_key: ENV['S3_ACCESS_KEY'],
+    secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+    region: 'us-east-1',
+    topic_arn: 'arn:aws:sns:us-east-1:167512897889:topic-name-here',
+    subject: "App v#{versionOfApp} ready for download",
+    message: notification_message_body
+)
+```
 
-## Run tests for this plugin
+*Note: It is recommended to not store the AWS access keys in the `Fastfile`.*
+
+*Note: The only permissions you need to add to your AWS IAM user is `SNS:Publish` to the SNS topic you created.*
+
+## Development
+
+```
+bundle install 
+```
 
 To run both the tests, and code style validation, run
 
 ```
-rake
+bundle exec rake
 ```
 
 To automatically fix many of the styling issues, use
 ```
-rubocop -a
+bundle exec rubocop -a
 ```
 
 ## Issues and Feedback
