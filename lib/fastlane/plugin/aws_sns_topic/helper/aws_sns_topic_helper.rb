@@ -1,5 +1,5 @@
 require 'fastlane_core/ui/ui'
-require 'aws-sdk'
+require 'aws-sdk-sns'
 
 module Fastlane
   UI = FastlaneCore::UI unless Fastlane.const_defined?("UI")
